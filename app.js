@@ -29,18 +29,17 @@ async function main() {
     await mongoose.connect(MONGO_URL);
 }
 
-app.get('/', wrapAsync((req, res) => {
+app.get('/', (req, res) => {
     res.send('Hi, I am root');
-}));
+});
 
 const validateListing = (req, res, next) => {
     let { error } = listingSchema.validate(req.body);
     if(error) {
         let errMsg = error.details.map((el) => el.message).join(",");
         return next(new ExpressError(400, errMsg));
-    } else {
-        next();
     }
+    next();
 };
 
 // Index Route
@@ -50,18 +49,19 @@ app.get("/listings", wrapAsync(async (req, res) => {
 }));
 
 // New Route
-app.get("/listings/new", wrapAsync((req, res) => {
+// Do not wrap this with wrapAsync
+app.get("/listings/new", (req, res) => {
     res.render("listings/new.ejs");
-}));
+});
 
 // Show Route
-app.get("/listings/:id", validateListing, wrapAsync(async (req, res) => {
+app.get("/listings/:id", wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);
     res.render("listings/show.ejs", { listing });
 }));
 
 // Create Route
-app.post("/listings", wrapAsync(async (req, res, next) => {
+app.post("/listings", validateListing, wrapAsync(async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -116,6 +116,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("error.ejs", { message });
     // res.status(statusCode).send(message);
 });
+
 
 app.listen(3000, () => {
     console.log('Server is listening to port 3000');
