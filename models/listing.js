@@ -12,10 +12,10 @@ const listingSchema = new Schema({
     },
     image: {
         type: String,
-        default: "https://unsplash.com/photos/sunset-over-mountains-and-a-still-lake-7eeTeRSxY0g",
+        default: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
         set: (v) => 
             v==="" ? 
-        "https://unsplash.com/photos/sunset-over-mountains-and-a-still-lake-7eeTeRSxY0g" 
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" 
         : v,
     },
     price: {
