@@ -16,7 +16,7 @@ body {
 }
 
 .fa-snowflake {
-  color: #fe424d;
+  color: #5a8dee;
   font-size: 2rem;
 }
 
@@ -96,13 +96,13 @@ body {
 /* New Page */
 
 .add-btn {
-  background-color: #fe424d !important;
+  background-color: #5a8dee !important;
   border: none !important;
 }
 
 /* Edit Page */
 .edit-btn {
-  background-color: #fe424d !important;
+  background-color: #5a8dee !important;
   border: none !important;
 }
 
